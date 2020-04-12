@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -85,6 +86,9 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    //Firebase
+    implementation 'com.google.firebase:firebase-analytics:17.3.0'
 
     //Permission dispatcher
     implementation "org.permissionsdispatcher:permissionsdispatcher:$permission_dispatcher_ver"

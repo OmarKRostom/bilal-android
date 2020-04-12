@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "483306596672",
+    "firebase_url": "https://azan-edge-1526739011298.firebaseio.com",
+    "project_id": "azan-edge-1526739011298",
+    "storage_bucket": "azan-edge-1526739011298.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483306596672:android:4bfee07ebbf3b3aae232a5",
+        "android_client_info": {
+          "package_name": "com.omarkrostom.bilal.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483306596672-vptgg12a4008hcng12ruikivn70eh23v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASTe9D5kF_07aekyQIX1hy4V58haFYMc4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483306596672-vptgg12a4008hcng12ruikivn70eh23v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
