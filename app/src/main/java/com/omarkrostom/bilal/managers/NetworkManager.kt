@@ -38,22 +38,22 @@ object NetworkManager {
 
     /**
      * Helper function to convert a single emit from Rx into LiveData
-     * TODO:: To be replaced later with coroutines if proven better performance
      */
-    fun <T> Single<Response<T>>.create(): LiveData<NetworkResource> {
-        val responseLiveData = MutableLiveData<NetworkResource>().apply {
-            value = NetworkResource.Loading
+    fun <T> Single<Response<T>>.create(): LiveData<NetworkResource<T>> {
+        val responseLiveData = MutableLiveData<NetworkResource<T>>().apply {
+            value = NetworkResource.Loading()
         }
 
         val disposable = this.observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
                 responseLiveData.value = when (it.isSuccessful) {
-                    true -> NetworkResource.Success(it.body())
-                    else -> NetworkResource.Failure(NetworkError(it.message(), it.code()))
+                    true -> NetworkResource.Success(response = it.body())
+                    else -> NetworkResource.Failure(error = NetworkError(it.message(), it.code()))
                 }
             }, {
-                responseLiveData.value = NetworkResource.Failure(NetworkError(it.localizedMessage))
+                responseLiveData.value =
+                    NetworkResource.Failure(error = NetworkError(it.localizedMessage))
             })
 
         return responseLiveData.apply {
@@ -61,10 +61,23 @@ object NetworkManager {
         }
     }
 
-    sealed class NetworkResource {
-        object Loading : NetworkResource()
-        data class Success<T>(val data: T?) : NetworkResource()
-        data class Failure(val data: NetworkError) : NetworkResource()
+    sealed class NetworkResource<T>(
+        val state: NetworkState,
+        val data: T? = null,
+        val networkError: NetworkError? = null
+    ) {
+        data class Loading<T>(val networkState: NetworkState = NetworkState.LOADING) :
+            NetworkResource<T>(networkState)
+
+        data class Success<T>(
+            val networkState: NetworkState = NetworkState.SUCCESS,
+            val response: T?
+        ) : NetworkResource<T>(networkState, response)
+
+        data class Failure<T>(
+            val networkState: NetworkState = NetworkState.FAILURE,
+            val error: NetworkError
+        ) : NetworkResource<T>(networkState, networkError = error)
     }
 
     data class NetworkError(
@@ -79,6 +92,12 @@ object NetworkManager {
                 else -> NetworkErrorStates.NoInternetConnection
             }
         }
+    }
+
+    sealed class NetworkState {
+        object SUCCESS : NetworkState()
+        object FAILURE : NetworkState()
+        object LOADING : NetworkState()
     }
 
     sealed class NetworkErrorStates {
