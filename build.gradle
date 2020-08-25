@@ -5,12 +5,15 @@ buildscript {
         retrofit_version = '2.7.2'
         room_version = '2.2.4'
         rx_version = '2.2.18'
+        rx_android_version = '2.1.1'
         gson_version = '2.8.6'
         okhttp_version = '4.4.0'
+        permission_dispatcher_ver = '4.6.0'
     }
     repositories {
         google()
         jcenter()
+        maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.1'

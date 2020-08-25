@@ -17,15 +17,33 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+            buildConfigField "String", "PLACES_API", "\"http://bilal.rostom.dev/api/qa/\""
+            buildConfigField "String", "BILAL_API", "\"http://bilal.rostom.dev/api/qa/\""
+        }
         beta {
             debuggable true
             minifyEnabled false
             applicationIdSuffix ".beta"
+            versionNameSuffix "-beta"
+            buildConfigField "String", "PLACES_API", "\"http://bilal.rostom.dev/api/qa/\""
+            buildConfigField "String", "BILAL_API", "\"http://bilal.rostom.dev/api/qa/\""
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "PLACES_API", "\"http://bilal.rostom.dev/api/\""
+            buildConfigField "String", "BILAL_API", "\"http://bilal.rostom.dev/api/\""
         }
     }
 
@@ -44,6 +62,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     //Dagger
     implementation "com.google.dagger:dagger:$dagger_version"
@@ -52,16 +71,22 @@ dependencies {
 
     //Networking
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.google.code.gson:gson:$gson_version"
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
 
     //RxJava
     implementation "io.reactivex.rxjava2:rxjava:$rx_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"
 
     //Data Persistence
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    //Permission dispatcher
+    implementation "org.permissionsdispatcher:permissionsdispatcher:$permission_dispatcher_ver"
+    kapt "org.permissionsdispatcher:permissionsdispatcher-processor:$permission_dispatcher_ver"
 }

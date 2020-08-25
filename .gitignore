@@ -3,6 +3,9 @@
 *.aar
 *.ap_
 *.aab
+*.DS_Store
+.DS_Store
+.idea/*
 
 # Files for the ART/Dalvik VM
 *.dex
