@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:483306596672:android:437a0b3ced71786fe232a5",
+        "mobilesdk_app_id": "1:483306596672:android:8b113ba938b4fd88e232a5",
         "android_client_info": {
-          "package_name": "com.omarkrostom.beta"
+          "package_name": "com.omarkrostom.bilal.beta"
         }
       },
       "oauth_client": [
